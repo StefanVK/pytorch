@@ -387,7 +387,7 @@ class IListRefIterator {
 
   IListRefIterator() : tag_(IListRefTag::None) {}
 
-#if defined(_MSC_VER) && _ITERATOR_DEBUG_LEVEL != 0
+#if (defined(_MSC_VER) && _ITERATOR_DEBUG_LEVEL != 0) or defined(_GLIBCXX_DEBUG)
   // See [Note: MSVC Iterator Debug]
   IListRefIterator(const IListRefIterator& iterator)
       : tag_(iterator.tag_) {
@@ -407,7 +407,7 @@ class IListRefIterator {
   }
 #endif
 
-#if defined(_MSC_VER) && _ITERATOR_DEBUG_LEVEL == 2
+#if (defined(_MSC_VER) && _ITERATOR_DEBUG_LEVEL == 2) or defined(_GLIBCXX_DEBUG)
   // See [Note: MSVC Iterator Debug]
   ~IListRefIterator() noexcept(false) {
     switch (tag_) {
@@ -485,7 +485,7 @@ class IListRefIterator {
     materialized_iterator_type materialized_iterator;
     void* _init_ptr;
     Payload() : _init_ptr(nullptr) {}
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) or defined(_GLIBCXX_DEBUG)
     // See [Note: MSVC Iterator Debug]
     ~Payload() {}
 #endif
